@@ -1,5 +1,6 @@
 import * as BABYLON from 'babylonjs';
 
+
 const canvas = document.getElementById("renderCanvas"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
 
@@ -16,9 +17,9 @@ const createScene = function () {
     const box = BABYLON.MeshBuilder.CreateBox("box", {});
     box.position.y = 0.5;
 
-	const defaultGridMaterial = new BABYLON.GridMaterial("default", scene);
-	defaultGridMaterial.majorUnitFrequency = 5;
-	defaultGridMaterial.gridRatio = 0.5;
+	// const defaultGridMaterial = new BABYLON.GridMaterial("default", scene);
+	// defaultGridMaterial.majorUnitFrequency = 5;
+	// defaultGridMaterial.gridRatio = 0.5;
 
 
     const ground = BABYLON.MeshBuilder.CreateGround("ground", {width:10, height:10});
