@@ -20,15 +20,23 @@ const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2.1, Math.PI / 2
 camera.attachControl(canvas, true);
 const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
 
-const box = BABYLON.MeshBuilder.CreateBox("box", {});
-box.position.y = 0.5;
-box.rotation.y = Math.PI / 4;
+
+const options = {
+    size: 0.5,
+
+};
 
 
-const roof = BABYLON.MeshBuilder.CreateCylinder("roof", {diameter: 1.3, height: 1.2, tessellation: 3});
-roof.scaling.x = 0.75;
-roof.rotation.z = Math.PI / 2;
-roof.position.y = 1.22;
+const box = BABYLON.MeshBuilder.CreateBox("box", options);
+box.position.y = 0.25;
+box.rotation.y = 0;
+box.scaling.x=1;
+
+//
+// const roof = BABYLON.MeshBuilder.CreateCylinder("roof", {diameter: 1.3, height: 1.2, tessellation: 3});
+// roof.scaling.x = 1.75;
+// roof.rotation.z = Math.PI / 2;
+// roof.position.y = 1.22;
 // mesh.position =(2, 3, 4);//(2, 3, 4)
 // mesh.position.addInPlace(new Vector3(2, 3, 4)); //(-1 + 2, 2 + 3, 1 + 4) = (1, 5, 5)
 // mesh.translate(new BABYLON.Vector3(2, 3, 4), 1, BABYLON.Space.WORLD);
@@ -55,9 +63,9 @@ roof.position.y = 1.22;
 
 
        const gridmaterial = new Materials.GridMaterial("GridMaterial", scene);
-       gridmaterial.majorUnitFrequency = 10;
+       gridmaterial.majorUnitFrequency = 5;
        gridmaterial.minorUnitVisibility = 0.3;
-       gridmaterial.gridRatio = 0.001;
+       gridmaterial.gridRatio = 0.1;
        gridmaterial.backFaceCulling = false;
        gridmaterial.mainColor = new BABYLON.Color3.FromInts(0,0,255);
        gridmaterial.lineColor = new BABYLON.Color3.FromInts(0,255,0);
@@ -66,15 +74,16 @@ roof.position.y = 1.22;
 
 
        const gridMesh = BABYLON.Mesh.CreateGround("gridx", 1.0, 0.0, 1, scene);
-       gridMesh.scaling.x = Math.max(width, depth);
-       gridMesh.scaling.z = gridMesh.scaling.x;
-       gridMesh.isPickable = false;
+       gridMesh.scaling.x = 5;//Math.max(width, depth);
+       gridMesh.scaling.z = 5;//gridMesh.scaling.x;
+       gridMesh.position.y = -0.0;
+       gridMesh.isPickable = true;
        gridMesh.material = gridmaterial;
        gridMesh.alphaIndex = 2;
 
        const gridMesh2 = BABYLON.Mesh.CreateGround("grid2", 1.0, 0.0, 100, scene);
-       gridMesh2.scaling.x = Math.max(width, depth);
-       gridMesh2.scaling.z = gridMesh2.scaling.x;
+       gridMesh2.scaling.x = 5;//Math.max(width, depth);
+       gridMesh2.scaling.z = 5;//gridMesh2.scaling.x;
        gridMesh2.rotation.z = Math.PI / 2;
        gridMesh2.isPickable = false;
        gridMesh2.material = gridmaterial;
