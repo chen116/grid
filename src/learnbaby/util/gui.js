@@ -11,7 +11,7 @@ export  function vicgui(scene) {
 
   const box = BABYLON.MeshBuilder.CreateBox("box", {}, scene);
   box.position.y = 0.5;
-  const ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 3, height:3}, scene)
+  // const ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 3, height:3}, scene)
 
   const toSize = function(isChecked) {
   if (isChecked) {

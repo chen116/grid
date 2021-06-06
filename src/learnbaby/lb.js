@@ -27,7 +27,7 @@ camera.upperRadiusLimit =50;
 
 
 const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
-
+//
 
 const options = {
     size: 0.5,
@@ -106,7 +106,7 @@ const options = {
        gridMesh3.material = gridmaterial;
        gridMesh3.alphaIndex = 2;
 
-       scene.meshes.find(m => m.name === 'BackgroundPlane').alphaIndex = 1;
+       scene.meshes.find(m => m.name === 'BackgroundPlane').alphaIndex = 0;
 
 
 
@@ -119,11 +119,37 @@ const options = {
 vicgui(scene);
 
 
-  const abstractPlane = BABYLON.Plane.FromPositionAndNormal(new BABYLON.Vector3(1, 1, 1), new BABYLON.Vector3(0.2, 0.5, -1));
 
-  const plane = BABYLON.MeshBuilder.CreatePlane("plane", {sourcePlane: abstractPlane, sideOrientation: BABYLON.Mesh.DOUBLESIDE},scene);
+
+
+{
+
+  const abstractPlane = BABYLON.Plane.FromPositionAndNormal(new BABYLON.Vector3(0, 0, 0),
+       new BABYLON.Vector3(0, 1, 0));
+  //
+  const plane = BABYLON.MeshBuilder.CreatePlane("plane", {width:10,height:10,sourcePlane: abstractPlane, sideOrientation: BABYLON.Mesh.DOUBLESIDE},scene);
   plane.material = gridmaterial;
 
+
+const path = []
+
+for(var ii = 0; ii <100 ; ii++)
+{
+    path.push(new BABYLON.Vector3(ii,0,ii))
+}
+
+var line =  BABYLON.Mesh.CreateLines("line", path, scene);
+
+    //Array of paths to construct tube
+	var myPath = [
+		 	new BABYLON.Vector3(0, -1, 0.0),
+			new BABYLON.Vector3(0, 3, 0)
+	];
+
+}
+
+
+{
   var path = [];
   for(var i = -20; i < 20; i++) {
     var x = i;
@@ -142,6 +168,8 @@ vicgui(scene);
       path[i].z = z;
     }
   };
+
+}
 
   // morphing
   var k = 0;
