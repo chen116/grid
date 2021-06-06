@@ -2,7 +2,8 @@ import * as BABYLON from 'babylonjs';
 
 
 import * as Materials from 'babylonjs-materials';
-
+import {showAxis} from './util/axes.js';
+import {vicgui} from './util/gui.js';
 
 const canvas = document.getElementById("renderCanvas"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
@@ -16,8 +17,15 @@ const createScene = function () {
 
 
 //mesh created with default size so height is 1
-const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2.1, Math.PI / 2.5, 10, new BABYLON.Vector3(0, 0, 0));
+const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI /2, 15, new BABYLON.Vector3(0, 0, 0));
+// const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2.1, Math.PI / 2.5, 10, new BABYLON.Vector3(0, 0, 0));
+
+
 camera.attachControl(canvas, true);
+camera.lowerRadiusLimit =5;
+camera.upperRadiusLimit =50;
+
+
 const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
 
 
@@ -27,10 +35,10 @@ const options = {
 };
 
 
-const box = BABYLON.MeshBuilder.CreateBox("box", options);
-box.position.y = 0.25;
-box.rotation.y = 0;
-box.scaling.x=1;
+    const box = BABYLON.MeshBuilder.CreateBox("box", options);
+    box.position.y = 0.25;
+    box.rotation.y = 0;
+    box.scaling.x=1;
 
 //
 // const roof = BABYLON.MeshBuilder.CreateCylinder("roof", {diameter: 1.3, height: 1.2, tessellation: 3});
@@ -89,9 +97,61 @@ box.scaling.x=1;
        gridMesh2.material = gridmaterial;
        gridMesh2.alphaIndex = 2;
 
-
+       const gridMesh3 = BABYLON.Mesh.CreateGround("grid2", 1.0, 0.0, 100, scene,true);
+       gridMesh3.scaling.z = 5;//Math.max(width, depth);
+       gridMesh3.scaling.y = 5;//gridMesh3.scaling.x;
+       gridMesh3.scaling.x = 5;//gridMesh3.scaling.x;
+       gridMesh3.rotation.x = Math.PI / 2;
+       gridMesh3.isPickable = false;
+       gridMesh3.material = gridmaterial;
+       gridMesh3.alphaIndex = 2;
 
        scene.meshes.find(m => m.name === 'BackgroundPlane').alphaIndex = 1;
+
+
+
+
+
+
+
+
+  showAxis(2,scene);
+vicgui(scene);
+
+
+  const abstractPlane = BABYLON.Plane.FromPositionAndNormal(new BABYLON.Vector3(1, 1, 1), new BABYLON.Vector3(0.2, 0.5, -1));
+
+  const plane = BABYLON.MeshBuilder.CreatePlane("plane", {sourcePlane: abstractPlane, sideOrientation: BABYLON.Mesh.DOUBLESIDE},scene);
+  plane.material = gridmaterial;
+
+  var path = [];
+  for(var i = -20; i < 20; i++) {
+    var x = i;
+    var y = 0;
+    var z = 0;
+    path.push(new BABYLON.Vector3(x, y, z));
+  }
+  var mesh = BABYLON.Mesh.CreateLines("lines", path, scene, true);
+  var updatePath = function(path, k) {
+    for (var i = 0; i < path.length; i++) {
+      var x = path[i].x;
+      var z = path[i].z;
+      var y = 5 * Math.sin(i / 3 + k);
+      path[i].x = x;
+      path[i].y = y;
+      path[i].z = z;
+    }
+  };
+
+  // morphing
+  var k = 0;
+  scene.registerBeforeRender(function() {
+    updatePath(path, k);
+    //updateLines(mesh, path);
+    mesh = BABYLON.Mesh.CreateLines(null, path, null, null, mesh);
+    k += 0.05;
+    // pl.position = camera.position;
+  });
 
     return scene;
 };
