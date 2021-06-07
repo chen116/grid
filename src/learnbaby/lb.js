@@ -143,6 +143,9 @@ var line =  BABYLON.Mesh.CreateLines("line", path, scene);
     console.log("x",pk.pickedPoint.x);
     console.log("y",pk.pickedPoint.y);
     console.log("z",pk.pickedPoint.z);
+    document.getElementById("x").innerHTML="x:"+pk.pickedPoint.x;
+    document.getElementById("y").innerHTML="y:"+pk.pickedPoint.y;
+    document.getElementById("z").innerHTML="z:"+pk.pickedPoint.z;
 
   }
 
