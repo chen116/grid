@@ -90,13 +90,14 @@ export  function vicgui(scene) {
   panel.addControl(input);
 
   const selectBox = new GUI.SelectionPanel("sp", [transformGroup, colorGroup, rotateGroup]);
-  selectBox.width = 0.25;
-  selectBox.height = 0.47;
+  selectBox.width = 0.15;
+  selectBox.height = 0.7;
   selectBox.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
   selectBox.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
 
   advancedTexture.addControl(selectBox);
-  advancedTexture.addControl(panel);
+  // advancedTexture.addControl(panel);
+  panel.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
   panel.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
   selectBox.removeFromGroupSelector(0, 0);
 
