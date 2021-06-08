@@ -85,7 +85,8 @@ export  function vicgui(scene) {
   const advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
   //const advancedTexture2 = GUI.AdvancedDynamicTexture.CreateForMesh(plane);
   const panel = new GUI.StackPanel();
-
+  panel.background = "black";
+  panel.width = 0.2;
   panel.addControl(button);
   panel.addControl(input);
 
@@ -96,7 +97,7 @@ export  function vicgui(scene) {
   selectBox.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
 
   advancedTexture.addControl(selectBox);
-  // advancedTexture.addControl(panel);
+  advancedTexture.addControl(panel);
   panel.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
   panel.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
   selectBox.removeFromGroupSelector(0, 0);
