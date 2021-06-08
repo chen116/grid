@@ -7,7 +7,7 @@ module.exports = {
       grid: './src/grid.js',
       grids: './src/grids.js',
       baby: './src/baby.js',
-      lb:'./src/learnbaby/lb.js'
+      lb:'./src/learnbaby/lb.js',
 
 },
   output: {

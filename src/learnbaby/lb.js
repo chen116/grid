@@ -6,14 +6,12 @@ import {showAxis} from './util/axes.js';
 import {vicgui} from './util/gui.js';
 import {groundGrid} from './util/ground_grid.js';
 import {planeGrid} from './util/plane_grid.js';
-
 const canvas = document.getElementById("renderCanvas"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
-
 // Add your code here matching the playground format
 const createScene = function () {
 
-    const scene = new BABYLON.Scene(engine);
+const scene = new BABYLON.Scene(engine);
 
 
 
