@@ -8,6 +8,7 @@ module.exports = {
       grids: './src/grids.js',
       baby: './src/baby.js',
       lb:'./src/learnbaby/lb.js',
+      dr:'./src/dr/dr.js'
 
 },
   output: {
