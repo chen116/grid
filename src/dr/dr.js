@@ -124,10 +124,18 @@ planeGrid([0,0,0],[0,0,1],500,500,gridmaterial,scene);
   };
 
 }
+var updateLine = function(previous,current,size) {
+	  
+  var axisX = BABYLON.Mesh.CreateLines("userLine", [ 
+    previous, current], scene);
+  axisX.color = new BABYLON.Color3(1, 0, 0);
+  // var xChar = makeTextPlane(size, "red", 2);
+  // xChar.position = new BABYLON.Vector3(size/2, 2,0);
 
+};
 
 var mousePath = [];
-var dotrack = -1;
+var dotrack = 0;
 // for(var i = -5; i <= 5; i=i+.5) {
 //   var x = i;
 //   var y = i;
@@ -159,7 +167,8 @@ var dotrack = -1;
 
     showAxis(5,scene);
 
-
+    var tempx;
+    var temp;
   scene.onPointerDown = function(ev, pk){
     // console.log("x",pk.pickedPoint.x);
     // console.log("y",pk.pickedPoint.y);
@@ -168,43 +177,62 @@ var dotrack = -1;
 
       mousePath=[];
 
-    dotrack=1;
+    
     console.log("moving")
     console.log(pk.hit)
     document.getElementById("x").innerHTML="x:"+pk.pickedPoint.x;
+
+    if (pk.hit) {
+      if (dotrack==0)
+      {
+        dotrack=1;
+        temp  =  pk.pickedPoint;
+        tempx=pk.pickedPoint.x;
+
+      }
+  
+
+    }
     // document.getElementById("y").innerHTML="y:"+pk.pickedPoint.y;
     // document.getElementById("z").innerHTML="z:"+pk.pickedPoint.z;
 
   }
   scene.onPointerMove = function (evt, pickResult) {
 
-         var pickResult = scene.pick(scene.pointerX, scene.pointerY);
+         var pk = scene.pick(scene.pointerX, scene.pointerY);
 
 
-        var xx = pickResult.pickedPoint.x;
-        var yy = pickResult.pickedPoint.y;
+      if (dotrack==1)
+{
+        var diff=Math.abs(pk.pickedPoint.x-tempx);// size
+        updateLine(temp,pk.pickedPoint,diff.toPrecision(2));
+        temp= pk.pickedPoint;
+        tempx=pk.pickedPoint.x;
+
+}
          // if the click hits the ground object, we change the impact position
-         if (dotrack>0)
-         {
-           document.getElementById("y").innerHTML=pickResult.pickedPoint.x;
-           mousePath.push(new BABYLON.Vector3(xx,yy,0));
+//          if (dotrack>0)
+//          {
+//            document.getElementById("y").innerHTML=pickResult.pickedPoint.x;
+//            mousePath.push(new BABYLON.Vector3(xx,yy,0));
 
-// BABYLON.MeshBuilder.CreateLineSystem("lineSystem", {lines: mousePath, instance: mouseMesh});
-         }
+// // BABYLON.MeshBuilder.CreateLineSystem("lineSystem", {lines: mousePath, instance: mouseMesh});
+//          }
 
      }
 
      scene.onPointerUp = function(ev, pk){
-       dotrack=0
-       var mouseMesh = BABYLON.Mesh.CreateLines(null, mousePath, null, null);
+      //  dotrack=0
+      //  var mouseMesh = BABYLON.Mesh.CreateLines(null, mousePath, null, null);
 
        // console.log(mousePath)
 
        // console.log("x",pk.pickedPoint.x);
        // console.log("y",pk.pickedPoint.y);
        // console.log("z",pk.pickedPoint.z);
-       // dotrack=0
-
+       dotrack=0
+     let drawnLinePos = scene.getMeshByName("userLine").getVerticesData(BABYLON.VertexBuffer.PositionKind)
+     console.log(drawnLinePos)
        // document.getElementById("y").innerHTML="y:"+pk.pickedPoint.y;
        // document.getElementById("z").innerHTML="z:"+pk.pickedPoint.z;
 
