@@ -21,6 +21,8 @@ export function drbutt(scene){
     panel.addControl(button);
     panel.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
     panel.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+
+  advancedTexture.addControl(panel);
 }
 
 export  function vicgui(scene) {
