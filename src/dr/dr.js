@@ -2,10 +2,10 @@ import * as BABYLON from 'babylonjs';
 
 
 import {showAxis} from './util/axes.js';
-import {vicgui} from './util/gui.js';
+import {vicgui,drbutt} from './util/gui.js';
 import {groundGrid} from './util/ground_grid.js';
 import {planeGrid} from './util/plane_grid.js';
-import {vicreg} from './util/regre.js';
+import {genfit} from './util/fit_cruve.js';
 const canvas = document.getElementById("renderCanvas"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
 // Add your code here matching the playground format
@@ -52,8 +52,8 @@ const createScene = function () {
       pathSoFar.push( current );
 
     }
-      let axisX =  BABYLON.Mesh.CreateLines("userLine", pathSoFar, scene);
-      axisX.color = new BABYLON.Color3(1, 1, 1);
+      let drawnLine =  BABYLON.Mesh.CreateLines("userLine", pathSoFar, scene);
+      drawnLine.color = new BABYLON.Color3(1, 1, 1);
    
   };
 
@@ -69,6 +69,7 @@ const createScene = function () {
 
 
     showAxis(50,scene);
+    drbutt(scene);
 
     var temp;
   scene.onPointerDown = function(ev, pk){
@@ -107,8 +108,8 @@ const createScene = function () {
       qq.push(  new BABYLON.Vector3(array[i][0], array[i][1], -50 )  )
       
     }
-    let axisX =  BABYLON.Mesh.CreateLines("userFittedLine", qq, scene);
-    axisX.color = new BABYLON.Color3(0, 1, 0);
+    let drawnLine =  BABYLON.Mesh.CreateLines("userFittedLine", qq, scene);
+    drawnLine.color = new BABYLON.Color3(0, 1, 0);
   }
 
      scene.onPointerUp = function(ev, pk){
@@ -117,8 +118,8 @@ const createScene = function () {
         console.log(drawnLinePos);
         
         pathSoFar=[];
-        drawReg(vicreg(drawnLinePos))
-
+        //  drawReg(genfit(drawnLinePos))
+        genfit(drawnLinePos,scene);
 
 
 

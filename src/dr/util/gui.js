@@ -1,5 +1,28 @@
 import * as GUI from 'babylonjs-gui';
 
+
+export function drbutt(scene){
+
+
+    const button = new GUI.Button.CreateSimpleButton("but", "Click Me");
+    button.width = 0.2;
+    button.height = "40px";
+    button.color = "white";
+    button.background = "green";
+    button.onPointerUpObservable.add(function() {
+        //    box.rotation.y=parseInt(input.text, 10);
+        });
+
+    const advancedTexture = new GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+    //const advancedTexture2 = GUI.AdvancedDynamicTexture.CreateForMesh(plane);
+    const panel = new GUI.StackPanel();
+    panel.background = "black";
+    panel.width = 0.2;
+    panel.addControl(button);
+    panel.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+    panel.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+}
+
 export  function vicgui(scene) {
 
 

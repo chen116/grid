@@ -1,5 +1,5 @@
 const path = require('path');
-
+const webpack = require('webpack');
 module.exports = {
     mode:'development',
   entry: {
@@ -23,4 +23,14 @@ module.exports = {
     compress: true,
     port: 8080,
   },
+
+  plugins: [
+    new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery"
+    })
+    ],
+
+
+
 };
