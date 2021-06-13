@@ -10,7 +10,7 @@ const canvas = document.getElementById("renderCanvas"); // Get the canvas elemen
 const engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
 // Add your code here matching the playground format
 const createScene = function () {
-
+  var donegen = -1
   const scene = new BABYLON.Scene(engine);
   //mesh created with default size so height is 1
   const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI /2, 20, new BABYLON.Vector3(0, 0, -120));
@@ -112,6 +112,8 @@ const createScene = function () {
     drawnLine.color = new BABYLON.Color3(0, 1, 0);
   }
 
+
+
      scene.onPointerUp = function(ev, pk){
        dotrack=0
         let drawnLinePos = scene.getMeshByName("userLine").getVerticesData(BABYLON.VertexBuffer.PositionKind)
@@ -119,7 +121,7 @@ const createScene = function () {
         
         pathSoFar=[];
         //  drawReg(genfit(drawnLinePos))
-        genfit(drawnLinePos,scene);
+         donegen = genfit(drawnLinePos,scene);
 
 
 
@@ -156,7 +158,7 @@ const scene = createScene(); //Call the createScene function
 
 // Register a render loop to repeatedly render the scene
 engine.runRenderLoop(function () {
-
+   
         scene.render();
 });
 // window.addEventListener("mousemove", function (event) {

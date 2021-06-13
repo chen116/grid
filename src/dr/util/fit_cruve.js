@@ -3,8 +3,10 @@ import Genetic from 'genetic-js'
 import * as BABYLON from 'babylonjs'
 export function genfit(arr,scene)
 {
+
+    var done = 0;
     var config = {
-        "iterations": 1000
+        "iterations": 100
         , "size": 250
         , "crossover": 0.2
         , "mutation": 0.1
@@ -14,9 +16,9 @@ export function genfit(arr,scene)
     for (let i = 0; i < arr.length; i=i+3) {
         vicdata.push( [arr[i],arr[i+1] ])
     }
-
+    let deg = 3
     var userData = {
-        "terms": 3+1
+        "terms": deg+1
         , "vertices": vicdata
     };
         // return
@@ -97,13 +99,13 @@ export function genfit(arr,scene)
     
     
     genetic.generation = function(pop, generation, stats) {
-        console.log("generation",generation,stats,pop)
+        // console.log("generation",generation,stats,pop)
 
 
     };
     
     genetic.notification = function(pop, generation, stats, isFinished) {
-        console.log("notification",isFinished,generation,stats,pop)
+        // console.log("notification",isFinished,generation,stats,pop)
 	
         function poly(entity) {
             var a = [];
@@ -119,7 +121,11 @@ export function genfit(arr,scene)
                     
                 a.push(buf);
             }
-            return a.join(" + ");
+            if (!isFinished)
+                return a.join(" + ");
+            else    
+                return a.join(" + ") + "   done";
+
         }
         
         function lerp(a, b, p) {
@@ -131,6 +137,8 @@ export function genfit(arr,scene)
         // // }
         
         $("#solution").html(poly(pop[0].entity));
+
+
         const vicentity=pop[0].entity;
         const array=[]
         for (let j = -175; j <= 175; j=j+0.01) {
@@ -162,12 +170,52 @@ export function genfit(arr,scene)
         drawnLine.color = new BABYLON.Color3(generation/999,0.1,.8);
 
         if (isFinished)
+        {
+            done=1;
+            // lib.foo = "bar";
             drawnLine.color = new BABYLON.Color3(0, 1, 0);
+        }
     };
 
     genetic.evolve(config, userData);
             
-    
+    var timeout = 1000000; // 1000000ms = 1000 seconds
+ 
+    // var lib = function() {}; // Let's create an empty object
+    var lib={}
+
+    // This is the promise code, so this is the useful bit
+    function ensureFooIsSet(timeout) {
+        var start = Date.now();
+        let p =  new Promise(waitForFoo); // set the promise object within the ensureFooIsSet object
+        return p
+
+
+        
+        // waitForFoo makes the decision whether the condition is met
+        // or not met or the timeout has been exceeded which means
+        // this promise will be rejected
+             function waitForFoo(resolve, reject) {
+            if (done)
+                resolve(done);
+            else if (timeout && (Date.now() - start) >= timeout)
+                reject(new Error("timeout"));
+            else
+                setTimeout(waitForFoo.bind(this, resolve, reject), 30);
+        }
+    }
+     
+    // This runs the promise code
+      ensureFooIsSet(timeout).then(function(res,rej){
+        // alert(res); // if the promise condition is met, this alert is fired
+    document.getElementById("z").innerHTML="done";
+
+        // return done
+    });
+
+    // console.log("yoo")
+
+
 }
 
 
