@@ -27,7 +27,7 @@ const createScene = function () {
   scene.clearColor = BABYLON.Color3.Gray();
 
 
-  const vicPlane= planeGrid([0,0,0],[0,0,1],350,100,nul-l,scene);
+  const vicPlane= planeGrid([0,0,0],[0,0,1],350,100,null,scene);
 
   var pathSoFar = []
 
