@@ -4,12 +4,13 @@ import * as GUI from 'babylonjs-gui';
 export function drbutt(scene){
 
 
-    const button = new GUI.Button.CreateSimpleButton("but", "Click Me");
-    button.width = 0.2;
+    const button = new GUI.Button.CreateSimpleButton("but", "reload");
+    button.width = 0.5;
     button.height = "40px";
     button.color = "white";
     button.background = "green";
     button.onPointerUpObservable.add(function() {
+        window.location.reload()
         //    box.rotation.y=parseInt(input.text, 10);
         });
 
@@ -23,6 +24,7 @@ export function drbutt(scene){
     panel.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
 
   advancedTexture.addControl(panel);
+ 
 }
 
 export  function vicgui(scene) {

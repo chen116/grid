@@ -1,10 +1,11 @@
 import regression from 'regression'
 import Genetic from 'genetic-js'
 import * as BABYLON from 'babylonjs'
-export  function genfit(arr,scene,done)
+export  function genfit(scribbledLine,zpos,scene)
 {
+    let deg = 2
 
-    done = 0;
+    var done = 0;
     var config = {
         "iterations": 500
         , "size": 250
@@ -13,10 +14,9 @@ export  function genfit(arr,scene,done)
         , "skip": 10
     };
     let vicdata =[]
-    for (let i = 0; i < arr.length; i=i+3) {
-        vicdata.push( [arr[i],arr[i+1] ])
+    for (let i = 0; i < scribbledLine.length; i=i+3) {
+        vicdata.push( [scribbledLine[i],scribbledLine[i+1] ])
     }
-    let deg = 2
     var userData = {
         "terms": deg+1
         , "vertices": vicdata
@@ -158,7 +158,7 @@ export  function genfit(arr,scene,done)
 
         let qq = []
         for (let i = 0; i < array.length; i++) {
-          qq.push(  new BABYLON.Vector3(array[i][0], array[i][1], -50 )  )
+          qq.push(  new BABYLON.Vector3(array[i][0], array[i][1], zpos )  )
           
         }
         let userFittedLine = scene.getMeshByName("userFittedLine")
@@ -172,6 +172,7 @@ export  function genfit(arr,scene,done)
         if (isFinished)
         {
             done=1;
+            console.log(msr(vicdata))
             // lib.foo = "bar";
             drawnLine.color = new BABYLON.Color3(0, 1, 0);
         }
@@ -216,6 +217,15 @@ export  function genfit(arr,scene,done)
     // console.log("yoo")
 
 
+}
+
+
+function msr(){
+    return 1
+}
+
+function predict(arr){
+    return 1
 }
 
 
