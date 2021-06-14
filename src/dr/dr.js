@@ -6,6 +6,11 @@ import {vicgui,drbutt} from './util/gui.js';
 import {groundGrid} from './util/ground_grid.js';
 import {planeGrid} from './util/plane_grid.js';
 import {genfit} from './util/fit_cruve.js';
+const ActionEnum = Object.freeze({
+  "none":0,
+  "scribble":1, 
+  "pick":2, "wednesday":3})
+
 const canvas = document.getElementById("renderCanvas"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
 // Add your code here matching the playground format
@@ -57,10 +62,11 @@ const createScene = function () {
    
   };
 
-  let dotrack = 0;
+  let dotrack = ActionEnum.none;
   scene.registerBeforeRender(function() {
-
-
+  if(donegen==1)
+    {scene.getMeshByName("userLine").dispose();
+  donegen=0}
 
     // scene.activeCamera.beta = Math.PI / 2;
     //  scene.activeCamera.alpha = 3*Math.PI/2 ;
@@ -75,9 +81,9 @@ const createScene = function () {
   scene.onPointerDown = function(ev, pk){
 
     if (pk.hit) {
-      if (dotrack==0)
+      if (dotrack==ActionEnum.none)
       {
-        dotrack=1;
+        dotrack=ActionEnum.scribble;
         temp  =  pk.pickedPoint;
       }
     }
@@ -88,7 +94,7 @@ const createScene = function () {
 
     var pk = scene.pick(scene.pointerX, scene.pointerY);
 
-      if (dotrack==1)
+      if (dotrack==ActionEnum.scribble)
       {
         if (pk.pickedPoint!=null)
         {
@@ -115,15 +121,23 @@ const createScene = function () {
 
 
      scene.onPointerUp = function(ev, pk){
-       dotrack=0
+       if(dotrack==ActionEnum.scribble)
+       {
         let drawnLinePos = scene.getMeshByName("userLine").getVerticesData(BABYLON.VertexBuffer.PositionKind)
         console.log(drawnLinePos);
         
         pathSoFar=[];
         //  drawReg(genfit(drawnLinePos))
-         donegen = genfit(drawnLinePos,scene);
+       
 
-
+         genfit(drawnLinePos,scene).then(function(resolve,reject){
+          // alert(res); // if the promise condition is met, this alert is fired
+      document.getElementById("y").innerHTML="done";
+  
+          donegen=(1)
+      });
+       }
+         dotrack=ActionEnum.pick
 
      }
 

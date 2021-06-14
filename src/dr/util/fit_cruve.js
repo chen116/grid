@@ -1,12 +1,12 @@
 import regression from 'regression'
 import Genetic from 'genetic-js'
 import * as BABYLON from 'babylonjs'
-export function genfit(arr,scene)
+export  function genfit(arr,scene,done)
 {
 
-    var done = 0;
+    done = 0;
     var config = {
-        "iterations": 100
+        "iterations": 500
         , "size": 250
         , "crossover": 0.2
         , "mutation": 0.1
@@ -16,7 +16,7 @@ export function genfit(arr,scene)
     for (let i = 0; i < arr.length; i=i+3) {
         vicdata.push( [arr[i],arr[i+1] ])
     }
-    let deg = 3
+    let deg = 2
     var userData = {
         "terms": deg+1
         , "vertices": vicdata
@@ -206,11 +206,11 @@ export function genfit(arr,scene)
     }
      
     // This runs the promise code
-      ensureFooIsSet(timeout).then(function(res,rej){
+     return ensureFooIsSet(timeout).then(function(res,reject){
         // alert(res); // if the promise condition is met, this alert is fired
-    document.getElementById("z").innerHTML="done";
+    document.getElementById("z").innerHTML="  done:"+res;
 
-        // return done
+      
     });
 
     // console.log("yoo")
