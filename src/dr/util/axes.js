@@ -36,16 +36,17 @@ export  function showAxis(size,scene) {
     // zChar.position = new BABYLON.Vector3(0, 0.05 * size, 0.9 * size);
 
     var liney = BABYLON.Mesh.CreateLines("liney", [ 
-      new BABYLON.Vector3(0,  -size, 0),  new BABYLON.Vector3(0,  size, 0)], scene);
+      new BABYLON.Vector3(0,  -size, -3),  new BABYLON.Vector3(0,  size, -3)], scene);
       liney.color = new BABYLON.Color3(1, 0, 0);
       var linex = BABYLON.Mesh.CreateLines("linex", [ 
-        new BABYLON.Vector3(-size,0, 0),  new BABYLON.Vector3( size,0, 0)], scene);
+        new BABYLON.Vector3(-size,0, -3),  new BABYLON.Vector3( size,0, -3)], scene);
         linex.color = new BABYLON.Color3(1, 0, 0);
   };
 
 
   export  function vicshowAxis(sizex,sizey,scene) {
     const makeTextPlane = function(text, color, size) {
+      size=12/10
     const dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 50, scene, true);
     dynamicTexture.hasAlpha = true;
     dynamicTexture.drawText(text, 5, 40, "bold 36px Arial", color , "transparent", true);
@@ -82,9 +83,9 @@ export  function showAxis(size,scene) {
     // zChar.position = new BABYLON.Vector3(0, 0.05 * size, 0.9 * size);
 
     var liney = BABYLON.Mesh.CreateLines("liney", [ 
-      new BABYLON.Vector3(0,  -sizey, 0),  new BABYLON.Vector3(0,  sizey, 0)], scene);
+      new BABYLON.Vector3(0,  -sizey, -3),  new BABYLON.Vector3(0,  sizey, -3)], scene);
       liney.color = new BABYLON.Color3(1, 0, 0);
       var linex = BABYLON.Mesh.CreateLines("linex", [ 
-        new BABYLON.Vector3(-sizex,0, 0),  new BABYLON.Vector3( sizex,0, 0)], scene);
+        new BABYLON.Vector3(-sizex,0, -3),  new BABYLON.Vector3( sizex,0, -3)], scene);
         linex.color = new BABYLON.Color3(1, 0, 0);
   };

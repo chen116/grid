@@ -28,7 +28,7 @@ export  function genfit(scribbledLine,zpos,scene)
     genetic.select1 = Genetic.Select1.Tournament2;
     genetic.select2 = Genetic.Select2.FittestRandom;
     genetic.seed = function() {
-        console.log("seed",this.userData["terms"])
+        // console.log("seed",this.userData["terms"])
 	
         var a = [];
         // create coefficients for polynomial with values between (-0.5, 0.5)

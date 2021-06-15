@@ -41,7 +41,7 @@ const createScene = function () {
   let zpos=-51
   let dotrack = ActionEnum.none;
   let gridSize = 10
-  vicshowAxis(gridSize*2,gridSize,scene);
+  vicshowAxis(gridSize*2,gridSize*1,scene);
   drbutt(dotrack,scene);
   const vicPlane= planeGrid([0,0,0],[0,0,1],gridSize*4,gridSize*2,null,scene);
 

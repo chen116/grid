@@ -5,7 +5,7 @@ export function createRay(zpos,scene)
     var vbox = BABYLON.Mesh.CreateBox("vbox", 1, scene);
     vbox.position.x= 0;
     vbox.position.z = zpos;
-    vbox.position.y = -50;
+    vbox.position.y = -49;
     vbox.setEnabled(true);
 
     var ray = new BABYLON.Ray();
@@ -19,7 +19,7 @@ export function createRay(zpos,scene)
     // rayHelper.show(scene,BABYLON.Color3.Red);
 
 
-    var sphere = BABYLON.MeshBuilder.CreateSphere('vsphere', {diameter: 1}, scene);
+    var sphere = BABYLON.MeshBuilder.CreateSphere('vsphere', {diameter: 0.25}, scene);
     
     sphere.setEnabled(false);
 
