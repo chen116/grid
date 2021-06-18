@@ -8,7 +8,8 @@ module.exports = {
       grids: './src/grids.js',
       baby: './src/baby.js',
       lb:'./src/learnbaby/lb.js',
-      dr:'./src/dr/dr.js'
+      dr:'./src/dr/dr.js',
+      conv:'./src/conv/conv.js',
 
 },
   output: {
