@@ -51,11 +51,22 @@ export function hscene(engine) {
 function drawLine(scene)
 {
   const path= [];
-  for (let t = 0; t < 2 * Math.PI; t += Math.PI / 100) {
+  for (let t = 0; t < 2 * Math.PI; t += 0.01) {
+    t= Math.round(t* 100) / 100
+    // t=parseFloat(t).toPrecision(2) 
     let x = t;
     let y = 2 * Math.sin(t) + 2;
     let z = -1;
     path.push(new BABYLON.Vector3(x, y, z))
+    console.log(t,t%0.5 )
+    if(t%0.5==0)
+    {
+      console.log(t);
+      BABYLON.MeshBuilder.CreateLines("path"+String(t), {points:  [ new BABYLON.Vector3(x, 0, -2)  , new BABYLON.Vector3(x, y, -2)    ],
+        colors:[new BABYLON.Color4(0, 1, 0, 1),  new BABYLON.Color4(0, 1, 0, 1)]   },scene );
+
+    }
+
   }
   BABYLON.MeshBuilder.CreateLines("path", {points: path},scene );
 
