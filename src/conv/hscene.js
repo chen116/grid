@@ -58,7 +58,6 @@ function drawLine(scene)
     let y = 2 * Math.sin(t) + 2;
     let z = -1;
     path.push(new BABYLON.Vector3(x, y, z))
-    console.log(t,t%0.5 )
     if(t%0.5==0)
     {
       console.log(t);
