@@ -6,12 +6,13 @@ export  function planeGrid( p0, normVec,width,height, mat,  scene) {
 
 if (mat==null){
      const gridmaterial = new Materials.GridMaterial("GridMaterial", scene);
-     gridmaterial.majorUnitFrequency = 5;
-     gridmaterial.minorUnitVisibility = 0.3;
+     gridmaterial.majorUnitFrequency =2;
+     gridmaterial.minorUnitVisibility = 0.;
+     gridmaterial.majorUnitVisibility = 0.1;
      gridmaterial.gridRatio = 1;
      gridmaterial.backFaceCulling = false;
-     gridmaterial.mainColor = new BABYLON.Color3.FromInts(50,180,250);
-     gridmaterial.lineColor = new BABYLON.Color3.FromInts(50,50,50);
+     gridmaterial.mainColor = new BABYLON.Color3.White;
+     gridmaterial.lineColor = new BABYLON.Color3.White;
      gridmaterial.opacity = 0.8;
      gridmaterial.zOffset = 0.0;
      mat = gridmaterial
@@ -26,6 +27,10 @@ if (mat==null){
   const plane = BABYLON.MeshBuilder.CreatePlane("plane", {width:width,height:height,sourcePlane: abstractPlane, sideOrientation: BABYLON.Mesh.DOUBLESIDE},scene);
   plane.material = mat;
   plane.isPickable = true;
-
+     plane.position.x = height/2
+     plane.position.z = width/2
      return plane;
 }
+
+
+

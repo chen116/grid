@@ -1,4 +1,5 @@
 export  function showAxis(size,scene) {
+  
     const makeTextPlane = function(text, color, size) {
     const dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 50, scene, true);
     dynamicTexture.hasAlpha = true;
