@@ -2,11 +2,10 @@
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-
     <head>
-
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <title>convolution</title>
+<link rel="shortcut icon" type="image/png" src="https://img.icons8.com/wired/64/000000/cat.png"/>
 
         <style>
             html, body {
@@ -18,12 +17,10 @@
                 margin: 0;
                 padding: 0;
             }
-            /* #functionCanvas {
-               float:left; 
-                width: 25%;
-                height: 50%;
-                touch-action: none;
-            }*/
+            canvas{
+                width: 100%;
+                height: 100%;
+            }
             #renderCanvas {
                float:left; 
                 width: 100%;
@@ -40,7 +37,7 @@
     border:2px solid black;
 }
 
-.func1{background:green;}
+.func1{background:green; }
 .func2{background:yellow;}
 .main{background:red;  }
 
@@ -82,7 +79,18 @@
         <label id="xl">+</label><input type="text" id="cc" value="">
       <br>
 
-      <input id="button" type="submit" value="Change grey box size">
+<div class="control">
+
+ Impulse Response:
+  <label class="radio">
+    <input type="radio" name="answer">
+    e^(-t)
+  </label>
+  <label class="radio">
+    <input type="radio" name="answer">
+    No
+  </label>
+</div>
 <br>
 
       <math >
@@ -136,7 +144,7 @@
      
     </form>
     <script src="conv.min.js"></script>
-
+<a href="https://icons8.com/icon/TAjXhuott2G9/edit">Edit icon by Icons8</a>
    </body>
 
 </html>

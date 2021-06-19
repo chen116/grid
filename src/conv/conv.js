@@ -1,64 +1,104 @@
+import 'bulma/css/bulma.css';
 import * as BABYLON from 'babylonjs';
 
+import * as Materials from 'babylonjs-materials';
 
-import {showAxis,vicshowAxis} from './util/axes.js';
+import {showAxis,vicshowAxis,vicshowAxisConv} from './util/axes.js';
 import {vicgui,drbutt} from './util/gui.js';
 import {groundGrid} from './util/ground_grid.js';
 import {planeGrid} from './util/plane_grid.js';
 import {genfit} from './util/fit_cruve.js';
 import {createRay} from './util/ray.js';
+import {hscene} from './hscene.js';
+import {xscene} from './xscene.js';
 const ActionEnum = Object.freeze({
   "none":0,
   "scribble":1, 
    "drawing":2,"picking":3,"picked":4})
 
-const canvas = document.getElementById("renderCanvas"); // Get the canvas element
-const engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
+const canvasMain = document.getElementById("renderCanvas"); // Get the canvas element
+const engineMain = new BABYLON.Engine(canvasMain, true); // Generate the BABYLON 3D engine
+
+
+
+const canvas1 = document.getElementById("func1Canvas"); // Get the canvas element
+const canvas2 = document.getElementById("func2Canvas"); // Get the canvas element
+const engine1 = new BABYLON.Engine(canvas1, true); // Generate the BABYLON 3D engine
+const engine2 = new BABYLON.Engine(canvas2, true); // Generate the BABYLON 3D engine
+
+
 // Add your code here matching the playground format
-const createScene = function () {
+const createScene = function (engine) {
   var donegen = -1
   const scene = new BABYLON.Scene(engine);
 
   // scene.useRightHandedSystem = true
 
   //mesh created with default size so height is 1
-  const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI /4, (Math.PI/2)*(3/4), 30, new BABYLON.Vector3(20, 5,10));
+  const camera = new BABYLON.ArcRotateCamera("camera", -(Math.PI / 3.5), (Math.PI/2)*(2/3), 30, new BABYLON.Vector3(5, 1,10));
 
   // const camera = new BABYLON.UniversalCamera("camera", new BABYLON.Vector3(0, 0, -5), scene);
   camera.mode = BABYLON.Camera.ORTHOGRAPHIC_CAMERA;
-  var distance = 48;	
+  var distance = 24;	
   var aspect = scene.getEngine().getRenderingCanvasClientRect().height / scene.getEngine().getRenderingCanvasClientRect().width; 
   camera.orthoLeft = -distance/2;
   camera.orthoRight = distance / 2;
   camera.orthoBottom = camera.orthoLeft * aspect;
   camera.orthoTop = camera.orthoRight * aspect;
 
-//   camera.attachControl(canvas, true);
+  camera.attachControl(canvasMain, true);
 
   // camera.lowerRadiusLimit =0;
   // camera.upperRadiusLimit =0;
   // const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
 
-  scene.clearColor = new BABYLON.Color3(0.7,0.7,0.7);
+  scene.clearColor = new BABYLON.Color3.FromInts(170,170,170);
 
   let zpos=-51
-  let dotrack = ActionEnum.none;
-  let gridxsize = 20
-  let gridysize = 10
-  let gridzsize = 40
-  vicshowAxis(gridxsize,gridysize,gridzsize,scene);
-  const vicPlane= planeGrid([gridxsize/2,0,gridzsize/2],[0,1,0],gridzsize,gridxsize,null,scene);
+  let gridxsize = 10
+  let gridysize = 5
+  let gridzsize = 20
+  vicshowAxisConv(gridxsize,gridysize,gridzsize,{'x':'tau','y':'','z':'t', 'y2':'h*x'},scene);
+
+  const planeOrigin = [gridxsize/2,0,gridzsize/2];
+  const vicPlane= planeGrid([1,0,1],[0,1,0],gridzsize,gridxsize,planeOrigin,null,scene);
+
+
+  const gridmaterial = new Materials.GridMaterial("GridMaterial", scene);
+  gridmaterial.majorUnitFrequency =1;
+  gridmaterial.minorUnitVisibility = 0.;
+  gridmaterial.majorUnitVisibility = 0.;
+  gridmaterial.gridRatio = 0.1;
+  gridmaterial.backFaceCulling = false;
+  gridmaterial.mainColor = new BABYLON.Color3.White;
+  gridmaterial.lineColor = new BABYLON.Color3.White;
+  gridmaterial.opacity = 0.8;
+  gridmaterial.zOffset = 0.0;
+  const yoftPlane= planeGrid([0,1,1],[1,0,0],gridzsize,gridysize,[ gridxsize,gridysize/2,gridzsize/2 ],gridmaterial,scene);
 
 
     return scene;
 };
 
-const scene = createScene(); //Call the createScene function
+const sceneMain = createScene(engineMain); //Call the createScene function
+
+const scene1 =  hscene(engine1);
+const scene2 =  xscene(engine2);
+
 
 // Register a render loop to repeatedly render the scene
-engine.runRenderLoop(function () {
+engineMain.runRenderLoop(function () {
    
-        scene.render();
+        sceneMain.render();
+});
+
+engine2.runRenderLoop(function () {
+   
+  scene2.render();
+});
+engine1.runRenderLoop(function () {
+   
+  scene1.render();
 });
 // window.addEventListener("mousemove", function (event) {
 //   console.log(scene.pointerX, scene.pointerY, event);
