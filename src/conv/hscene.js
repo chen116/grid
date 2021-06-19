@@ -62,7 +62,7 @@ function drawLine(scene)
     {
       console.log(t);
       BABYLON.MeshBuilder.CreateLines("path"+String(t), {points:  [ new BABYLON.Vector3(x, 0, -2)  , new BABYLON.Vector3(x, y, -2)    ],
-        colors:[new BABYLON.Color4(0, 1, 0, 1),  new BABYLON.Color4(0, 1, 0, 1)]   },scene );
+        colors:[new BABYLON.Color4(0, 1, 0, 1),  new BABYLON.Color4(0,1, 0, 1)]   },scene );
 
     }
 
