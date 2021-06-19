@@ -39,7 +39,7 @@ export function hscene(engine) {
 
     const vicPlane= planeGrid([gridxsize/2,0,gridxsize/2],[0,0,1],gridxsize,gridysize,planeOrigin,null,scene);
 
-    const vicLine = drawLine()
+     drawLine(scene)
 
   
   
@@ -48,8 +48,16 @@ export function hscene(engine) {
 
 }
 
-function drawLine()
+function drawLine(scene)
 {
-  let path = []
+  const path= [];
+  for (let t = 0; t < 2 * Math.PI; t += Math.PI / 100) {
+    let x = t;
+    let y = 2 * Math.sin(t) + 2;
+    let z = -1;
+    path.push(new BABYLON.Vector3(x, y, z))
+  }
+  BABYLON.MeshBuilder.CreateLines("path", {points: path},scene );
+
   return null
 }
