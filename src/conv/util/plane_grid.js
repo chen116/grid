@@ -8,11 +8,11 @@ if (mat==null){
      const gridmaterial = new Materials.GridMaterial("GridMaterial", scene);
      gridmaterial.majorUnitFrequency =5;
      gridmaterial.minorUnitVisibility = 0.5;
-     gridmaterial.majorUnitVisibility = 0.5;
+     gridmaterial.majorUnitVisibility = 1;
      gridmaterial.gridRatio = 1;
      gridmaterial.backFaceCulling = false;
      gridmaterial.mainColor = new BABYLON.Color3.FromInts(255,255,255);
-     gridmaterial.lineColor = new BABYLON.Color3.FromInts(0,170,255);
+     gridmaterial.lineColor = new BABYLON.Color3.FromInts(0,120,255);
      gridmaterial.opacity = 0.8;
      gridmaterial.zOffset = 0.0;
      mat = gridmaterial
