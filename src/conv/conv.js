@@ -9,37 +9,28 @@ import {groundGrid} from './util/ground_grid.js';
 import {planeGrid} from './util/plane_grid.js';
 import {genfit} from './util/fit_cruve.js';
 import {createRay} from './util/ray.js';
-import {hscene} from './hscene.js';
-import {xscene} from './xscene.js';
-const ActionEnum = Object.freeze({
-  "none":0,
-  "scribble":1, 
-   "drawing":2,"picking":3,"picked":4})
+import {funcEnum} from './util/vars.js';
+import func_gen from './util/func_gen';
+
+
 
 const canvasMain = document.getElementById("renderCanvas"); // Get the canvas element
 const engineMain = new BABYLON.Engine(canvasMain, true); // Generate the BABYLON 3D engine
-
-
-
-const canvas1 = document.getElementById("func1Canvas"); // Get the canvas element
-const canvas2 = document.getElementById("func2Canvas"); // Get the canvas element
-const engine1 = new BABYLON.Engine(canvas1, true); // Generate the BABYLON 3D engine
-const engine2 = new BABYLON.Engine(canvas2, true); // Generate the BABYLON 3D engine
-
 
 // Add your code here matching the playground format
 const createScene = function (engine) {
   var donegen = -1
   const scene = new BABYLON.Scene(engine);
+  vicgui(scene);
 
   // scene.useRightHandedSystem = true
 
   //mesh created with default size so height is 1
-  const camera = new BABYLON.ArcRotateCamera("camera", -(Math.PI / 3.5), (Math.PI/2)*(2/3), 30, new BABYLON.Vector3(5, 1,10));
+  const camera = new BABYLON.ArcRotateCamera("camera", -(Math.PI / 3.5), (Math.PI/2)*(2/3), 40, new BABYLON.Vector3(5, 5,2));
 
   // const camera = new BABYLON.UniversalCamera("camera", new BABYLON.Vector3(0, 0, -5), scene);
   camera.mode = BABYLON.Camera.ORTHOGRAPHIC_CAMERA;
-  var distance = 24;	
+  var distance = 20;	
   var aspect = scene.getEngine().getRenderingCanvasClientRect().height / scene.getEngine().getRenderingCanvasClientRect().width; 
   camera.orthoLeft = -distance/2;
   camera.orthoRight = distance / 2;
@@ -57,7 +48,7 @@ const createScene = function (engine) {
   let zpos=-51
   let gridxsize = 10
   let gridysize = 5
-  let gridzsize = 20
+  let gridzsize = 10
   vicshowAxisConv(gridxsize,gridysize,gridzsize,{'x':'tau','y':'','z':'t', 'y2':'h*x'},scene);
 
   const planeOrigin = [gridxsize/2,0,gridzsize/2];
@@ -77,31 +68,26 @@ const createScene = function (engine) {
   const yoftPlane= planeGrid([0,1,1],[1,0,0],gridzsize,gridysize,[ gridxsize,gridysize/2,gridzsize/2 ],gridmaterial,scene);
 
 
+
+
+
+
     return scene;
 };
 
 const sceneMain = createScene(engineMain); //Call the createScene function
 
-const scene1 =  hscene(canvas1,engine1);
-const scene2 =  xscene(engine2);
 
 
 // Register a render loop to repeatedly render the scene
 engineMain.runRenderLoop(function () {
-   
 
 
-        sceneMain.render();
+  sceneMain.render();
 });
 
-engine2.runRenderLoop(function () {
-   
-  scene2.render();
-});
-engine1.runRenderLoop(function () {
-   
-  scene1.render();
-});
+
+
 // window.addEventListener("mousemove", function (event) {
 //   console.log(scene.pointerX, scene.pointerY, event);
 //   // We try to pick an object

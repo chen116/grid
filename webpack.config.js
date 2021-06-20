@@ -10,6 +10,8 @@ module.exports = {
       lb:'./src/learnbaby/lb.js',
       dr:'./src/dr/dr.js',
       conv:'./src/conv/conv.js',
+      conv_hscene:'./src/conv/hscene.js',
+      conv_xscene:'./src/conv/xscene.js'
 
 },
   output: {

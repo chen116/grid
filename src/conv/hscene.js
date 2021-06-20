@@ -1,15 +1,25 @@
 import * as BABYLON from 'babylonjs';
 
+import * as Materials from 'babylonjs-materials';
 
-import {vicshowAxis2D,vicshowAxis} from './util/axes.js';
+import {vicshowAxis2D,vicshowAxis,vicshowAxisConv} from './util/axes.js';
 import {vicgui,drbutt} from './util/gui.js';
 import {groundGrid} from './util/ground_grid.js';
 import {planeGrid} from './util/plane_grid.js';
 import {genfit} from './util/fit_cruve.js';
 import {createRay} from './util/ray.js';
+import {funcEnum} from './util/vars.js';
+import { ajaxPrefilter } from 'jquery';
+import func_gen from './util/func_gen';
 
+const funcGen = require('./util/func_gen');
 
-export function hscene(canvas,engine) {
+const canvas1 = document.getElementById("func1Canvas"); // Get the canvas element
+const engine1 = new BABYLON.Engine(canvas1, true); // Generate the BABYLON 3D engine
+
+let curFunc = $('input[name=hfunc]:checked', '#hform').val()
+
+const  hscene = function(canvas,engine) {
     const scene = new BABYLON.Scene(engine);
     // scene.useRightHandedSystem = true
     //mesh created with default size so height is 1
@@ -39,43 +49,30 @@ export function hscene(canvas,engine) {
 
     const vicPlane= planeGrid([gridxsize/2,0,gridxsize/2],[0,0,1],gridxsize,gridysize,planeOrigin,null,scene);
 
-     drawLine(0,scene)
+    func_gen.withStr(curFunc,scene)
+    func_gen.changeColorFuncPath( [0,120,0],scene )
 
-  
-  
-      return scene;
+  return scene;
 
 
 }
+const scene =  hscene(canvas1,engine1);
 
-function drawLine(htype,scene)
-{
+engine1.runRenderLoop(function () {
+  scene.render();
+});
 
 
-  for (const mesh of scene.meshes) {
-    if (mesh.name === 'path') {
-       mesh.dispose()
-    } 
-  }
-  const path= [];
-  for (let t = 0; t < 6 * Math.PI; t += 1) {
-    t= Math.round(t* 100) / 100
-    // t=parseFloat(t).toPrecision(2) 
-    let x = t;
-    let y = 2 * Math.sin(t) + 3;
-    let z = -50;
-    path.push(new BABYLON.Vector3(x, y, z))
-    if(t%1==0)
-    {
-      const lines = BABYLON.MeshBuilder.CreateLines("path", {points:  [ new BABYLON.Vector3(x, 0, -2)  , new BABYLON.Vector3(x, y, -2)    ],
-        colors:[new BABYLON.Color4(0, 0,0.5, 1),  new BABYLON.Color4(0,0, 0.5, 1)]   },scene );
-        lines.enableEdgesRendering();	
-        lines.edgesWidth = 20.0;
-        lines.edgesColor = new BABYLON.Color4(0, 0, 0.5, 1);
-    }
+
+
+$('#hform input').on('change', function() {
+  let newFunc = $('input[name=hfunc]:checked', '#hform').val().toString()
+  if (newFunc.localeCompare(curFunc)!=0)
+  {
+    func_gen.withStr(newFunc,scene)
+    func_gen.changeColorFuncPath( [0,120,0],scene )
+
+    curFunc=newFunc
 
   }
-  // BABYLON.MeshBuilder.CreateLines("path", {points: path},scene );
-
-  return null
-}
+});

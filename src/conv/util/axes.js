@@ -50,14 +50,14 @@
 
 
     const axisY2 = BABYLON.Mesh.CreateLines("axisY2", [
-       new BABYLON.Vector3(sizex, 0, 0),   new BABYLON.Vector3(sizex, sizey, 0), 
-      new BABYLON.Vector3( -0.05 * arrowSize+sizex, sizey * 0.95, 0),
-      new BABYLON.Vector3(sizex, sizey, 0), 
-      new BABYLON.Vector3( 0.05 * arrowSize+sizex, sizey * 0.95, 0)
+       new BABYLON.Vector3(sizex, 0, sizez),   new BABYLON.Vector3(sizex, sizey, sizez), 
+      new BABYLON.Vector3( -0.05 * arrowSize+sizex, sizey * 0.95, sizez),
+      new BABYLON.Vector3(sizex, sizey, sizez), 
+      new BABYLON.Vector3( 0.05 * arrowSize+sizex, sizey * 0.95, sizez)
       ], scene);
   axisY2.color = new BABYLON.Color3(1, 0, 1);
   const yChar2 = makeTextPlane(axesStrings.y2, "green", sizey / 10);
-  yChar2.position = new BABYLON.Vector3(sizex, arrowSize*0.05+ sizey, -0.05 * arrowSize);
+  yChar2.position = new BABYLON.Vector3(sizex, arrowSize*0.05+ sizey, sizez);
 
 
   const axisZ2 = BABYLON.Mesh.CreateLines("axisZ2", [
