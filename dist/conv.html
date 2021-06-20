@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
+
+
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <title>convolution</title>
 <link rel="shortcut icon" type="image/png" src="https://img.icons8.com/wired/64/000000/cat.png"/>
@@ -29,8 +31,8 @@
             } 
 
            .radio:hover {
-  background-color: rgb(213, 213, 213);
-}
+               background-color: rgb(213, 213, 213);        
+            }
 
 .babylon{
     position:relative;
@@ -68,12 +70,11 @@
 </div>
 
 
-   <div class="ir">
+   <form id="hform">
 
       Impulse Response \(h \\( t \\) \):<br>
-
-   <label class="radio">
-      <input type="radio" name="h" id="h0">
+      <input type="radio" name="hfunc" id="h0" value="h0">
+      <label class="radio" for="h0">
          $$
          h\\(t\\)=
          \begin{cases}
@@ -81,22 +82,23 @@
          0, & \text{else}  \\
          \end{cases}
          $$
-   </label>
+      </label>
+      <br>
+      <input type="radio" name="hfunc" id="h1" value="h1">
+      <label class="radio" for="h1">
+         $$
+         h\\(t\\)=
+         \begin{cases}
+         e^{ {-1 \over 5}t  },  & \text{if} {\space 0 \leq} \text{ $t$ }  \\
+         0, & \text{else}  \\
+         \end{cases}
+         $$
+      </label>
+   </form>
    <br>
-   <label class="radio">
-      <input type="radio" name="h" id="h1">
-      $$
-      h\\(t\\)=
-      \begin{cases}
-      e^{ {-1 \over 5}t  },  & \text{if} {\space 0 \leq} \text{ $t$ }  \\
-      0, & \text{else}  \\
-      \end{cases}
-      $$
-   </label>
-   </div>
-<br>
 
   
+
 
 
 

@@ -82,13 +82,15 @@ const createScene = function (engine) {
 
 const sceneMain = createScene(engineMain); //Call the createScene function
 
-const scene1 =  hscene(engine1);
+const scene1 =  hscene(canvas1,engine1);
 const scene2 =  xscene(engine2);
 
 
 // Register a render loop to repeatedly render the scene
 engineMain.runRenderLoop(function () {
    
+
+
         sceneMain.render();
 });
 
@@ -109,3 +111,6 @@ engine1.runRenderLoop(function () {
 window.addEventListener("resize", function () {
         engine.resize();
 });
+// $('#hform input').on('change', function() {
+//   alert($('input[name=hfunc]:checked', '#hform').val()); 
+// });

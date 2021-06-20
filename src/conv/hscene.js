@@ -9,7 +9,7 @@ import {genfit} from './util/fit_cruve.js';
 import {createRay} from './util/ray.js';
 
 
-export function hscene(engine) {
+export function hscene(canvas,engine) {
     const scene = new BABYLON.Scene(engine);
     // scene.useRightHandedSystem = true
     //mesh created with default size so height is 1
@@ -23,7 +23,7 @@ export function hscene(engine) {
     camera.orthoBottom = camera.orthoLeft * aspect;
     camera.orthoTop = camera.orthoRight * aspect;
   
-  //   camera.attachControl(canvas, true);
+    camera.attachControl(canvas, true);
   
     // camera.lowerRadiusLimit =0;
     // camera.upperRadiusLimit =0;
@@ -39,7 +39,7 @@ export function hscene(engine) {
 
     const vicPlane= planeGrid([gridxsize/2,0,gridxsize/2],[0,0,1],gridxsize,gridysize,planeOrigin,null,scene);
 
-     drawLine(scene)
+     drawLine(0,scene)
 
   
   
@@ -48,26 +48,34 @@ export function hscene(engine) {
 
 }
 
-function drawLine(scene)
+function drawLine(htype,scene)
 {
+
+
+  for (const mesh of scene.meshes) {
+    if (mesh.name === 'path') {
+       mesh.dispose()
+    } 
+  }
   const path= [];
-  for (let t = 0; t < 2 * Math.PI; t += 0.01) {
+  for (let t = 0; t < 6 * Math.PI; t += 1) {
     t= Math.round(t* 100) / 100
     // t=parseFloat(t).toPrecision(2) 
     let x = t;
-    let y = 2 * Math.sin(t) + 2;
-    let z = -1;
+    let y = 2 * Math.sin(t) + 3;
+    let z = -50;
     path.push(new BABYLON.Vector3(x, y, z))
-    if(t%0.5==0)
+    if(t%1==0)
     {
-      console.log(t);
-      BABYLON.MeshBuilder.CreateLines("path"+String(t), {points:  [ new BABYLON.Vector3(x, 0, -2)  , new BABYLON.Vector3(x, y, -2)    ],
-        colors:[new BABYLON.Color4(0, 1, 0, 1),  new BABYLON.Color4(0,1, 0, 1)]   },scene );
-
+      const lines = BABYLON.MeshBuilder.CreateLines("path", {points:  [ new BABYLON.Vector3(x, 0, -2)  , new BABYLON.Vector3(x, y, -2)    ],
+        colors:[new BABYLON.Color4(0, 0,0.5, 1),  new BABYLON.Color4(0,0, 0.5, 1)]   },scene );
+        lines.enableEdgesRendering();	
+        lines.edgesWidth = 20.0;
+        lines.edgesColor = new BABYLON.Color4(0, 0, 0.5, 1);
     }
 
   }
-  BABYLON.MeshBuilder.CreateLines("path", {points: path},scene );
+  // BABYLON.MeshBuilder.CreateLines("path", {points: path},scene );
 
   return null
 }
