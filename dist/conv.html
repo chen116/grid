@@ -28,6 +28,10 @@
                 touch-action: none;
             } 
 
+           .radio:hover {
+  background-color: rgb(213, 213, 213);
+}
+
 .babylon{
     position:relative;
     display:flex;
@@ -63,88 +67,40 @@
 
 </div>
 
-    <!-- touch-action="none" for best results from PEP -->
-    <p>ddd</p>
-    <!-- <button  id="button" style="position: absolute; z-index: 1000;">out Press me!!!</button> -->
-    <form action="">
 
-      <label id="x">x:</label><br>
-      <label id="y">y:</label><br>
-      <label id="z">z:</label><br>
+<div class="ir">
 
-      <label for="lname">Number Onlyyy:</label><br>
-      <input type="text" id="lname" name="lname" value="1"><br>
-      <label id="yl">y=</label><input type="text" id="xc" value="">
-      <label id="xl">x^</label><input type="text" id="xp" value="">
-        <label id="xl">+</label><input type="text" id="cc" value="">
-      <br>
+ Impulse Response \(h \\( t \\) \):<br>
 
-<div class="control">
-
- Impulse Response:
   <label class="radio">
-    <input type="radio" name="answer">
-    e^(-t)
+    <input type="radio" name="h" id="h0">
+      $$
+      h\\(t\\)=
+      \begin{cases}
+      \sin (t)+2,  & \text{if} {\space 0 \leq} \text{ $t$ } {\leq 2\pi} \\
+      0, & \text{else}  \\
+      \end{cases}
+      $$
   </label>
+  <br>
   <label class="radio">
-    <input type="radio" name="answer">
-    No
+    <input type="radio" name="h" id="h1">
+    $$
+    h\\(t\\)=
+    \begin{cases}
+    e^{ {-1 \over 5}t  },  & \text{if} {\space 0 \leq} \text{ $t$ }  \\
+    0, & \text{else}  \\
+    \end{cases}
+   $$
   </label>
 </div>
 <br>
 
-      <math >
-
-         <mrow>
-            <mi>A</mi>
-            <mo>=</mo>
-
-            <mfenced open = "[" close="]">
-
-               <mtable>
-                  <mtr>
-                     <mtd><mi>x</mi></mtd>
-                     <mtd><mi>y</mi></mtd>
-                  </mtr>
-
-                  <mtr>
-                     <mtd><mi>z</mi></mtd>
-                     <mtd><mi>w</mi></mtd>
-                  </mtr>
-               </mtable>
-
-            </mfenced>
-         </mrow>
+  
 
 
 
-      </math><br>
-<math>
-  <mrow>
-    <mrow>
-          <msup> <mi>x</mi> <mn>2</mn> </msup> <mo>+</mo>
-              <mrow>
-                <mn>4</mn>
-                <mo>&InvisibleTimes;</mo>
-                <mi>x</mi>
-              </mrow>
-      <mo>+</mo>
-      <mn>4</mn>
-    </mrow>
-      <mo>=</mo>
-      <mn>0</mn>
-  </mrow>
-
-</math>
-
-<p>
-  When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are
-  \[x = {-b \pm \sqrt{b^2-4ac} \over 2a}.\]
-</p>
-     
-    </form>
     <script src="conv.min.js"></script>
-<a href="https://icons8.com/icon/TAjXhuott2G9/edit">Edit icon by Icons8</a>
    </body>
 
 </html>
