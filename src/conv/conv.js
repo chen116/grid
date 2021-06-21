@@ -13,7 +13,10 @@ import {funcEnum} from './util/vars.js';
 import func_gen from './util/func_gen';
 
 
+// var SPECTOR = require("spectorjs");
 
+// var spector = new SPECTOR.Spector();
+// spector.displayUI();
 const canvasMain = document.getElementById("renderCanvas"); // Get the canvas element
 const engineMain = new BABYLON.Engine(canvasMain, true); // Generate the BABYLON 3D engine
 
